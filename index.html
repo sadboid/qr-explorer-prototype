@@ -92,12 +92,18 @@
             text-align: center;
             padding: 20px;
             margin-top: 20px;
+            background: #ddd;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            left: 0;
         }
 
         .footer a {
             color: #008CBA;
             text-decoration: none;
             margin: 0 10px;
+            cursor: pointer;
         }
 
         .toggle-switch {
@@ -142,15 +148,11 @@
 
         <!-- Main Content Section -->
         <div id="main-content" class="content">
-            <div class="toggle-switch">
-                <label for="kidsMode">Toggle Kid’s Mode:</label>
-                <input type="checkbox" id="kidsMode" onclick="toggleKidsMode()">
-            </div>
-            <h2>Market Name / Site Name</h2>
-            <img src="https://via.placeholder.com/400x200" alt="Hero Image">
-            <p id="main-description">This tea set is handcrafted in the traditional Vietnamese style, perfect for enjoying authentic tea ceremonies...</p>
+            <h2>Ben Thanh Market</h2>
+            <img src="https://via.placeholder.com/400x200" alt="Ben Thanh Market">
+            <p id="main-description">Ben Thanh Market is one of the oldest and most famous markets in Ho Chi Minh City, offering a wide variety of goods and local food...</p>
             <h3 id="tips-title">Cultural Tips</h3>
-            <p id="tips-content">When using a tea set in Vietnam, it is customary to...</p>
+            <p id="tips-content">When visiting Ben Thanh Market, it's customary to bargain with the vendors. Start by offering half of the asking price...</p>
 
             <div>
                 <a class="btn" onclick="playAudio()">Play Audio Guide</a>
@@ -161,12 +163,12 @@
         <!-- Quiz Section -->
         <div id="quiz-content" class="quiz-container content">
             <h2>Cultural Quiz</h2>
-            <p>What is the traditional Vietnamese drink served with this tea set?</p>
-            <a class="answer" onclick="showFeedback(true)">Option 1: Green Tea</a>
-            <a class="answer" onclick="showFeedback(false)">Option 2: Black Tea</a>
-            <a class="answer" onclick="showFeedback(true)">Option 3: Lotus Tea</a>
+            <p>What is a popular food item you can find at Ben Thanh Market?</p>
+            <a class="answer" onclick="showFeedback(false)">Option 1: Sushi</a>
+            <a class="answer" onclick="showFeedback(true)">Option 2: Pho</a>
+            <a class="answer" onclick="showFeedback(false)">Option 3: Tacos</a>
             <div id="feedback" class="feedback"></div>
-            <a class="btn" onclick="nextQuestion()">Next Question</a>
+            <a class="btn" onclick="showContent()">Back</a>
         </div>
 
         <!-- Kids Mode Content -->
@@ -175,13 +177,13 @@
             <p>Follow the clues to find the next treasure!</p>
             <p><strong>Clue 1:</strong> Find the red lantern near the market entrance!</p>
             <img src="https://via.placeholder.com/200" alt="Clue Image">
+            <a class="btn" onclick="showContent()">Back</a>
         </div>
 
         <!-- Footer/Sharing Section -->
         <div class="footer">
-            <a href="#">Share on Facebook</a> | 
-            <a href="#">Share on Twitter</a> | 
-            <a href="#">Save for Offline Use</a>
+            <a onclick="toggleKidsMode()">Toggle Kid Mode</a> | 
+            <a onclick="showContent()">Main Page</a>
         </div>
     </div>
 
@@ -190,17 +192,20 @@
         function showContent() {
             document.querySelector('.qr-sign').style.display = 'none';
             document.getElementById('main-content').style.display = 'block';
+            document.getElementById('quiz-content').style.display = 'none';
+            document.getElementById('kids-mode-content').style.display = 'none';
         }
 
         function showQuiz() {
             document.getElementById('main-content').style.display = 'none';
             document.getElementById('quiz-content').style.display = 'block';
+            document.getElementById('kids-mode-content').style.display = 'none';
         }
 
         function showFeedback(correct) {
             const feedbackDiv = document.getElementById('feedback');
             if (correct) {
-                feedbackDiv.innerHTML = "Correct! Lotus Tea is often served with this tea set.";
+                feedbackDiv.innerHTML = "Correct! Pho is a popular food item at Ben Thanh Market.";
                 feedbackDiv.style.borderLeftColor = "green";
             } else {
                 feedbackDiv.innerHTML = "Incorrect. Try again!";
@@ -208,18 +213,15 @@
             }
         }
 
-        function nextQuestion() {
-            alert("Move to the next question or finish the quiz.");
-        }
-
         function toggleKidsMode() {
-            const isKidsMode = document.getElementById('kidsMode').checked;
+            const isKidsMode = document.getElementById('kids-mode-content').style.display === 'block';
             if (isKidsMode) {
-                document.getElementById('main-content').style.display = 'none';
-                document.getElementById('kids-mode-content').style.display = 'block';
-            } else {
                 document.getElementById('kids-mode-content').style.display = 'none';
                 document.getElementById('main-content').style.display = 'block';
+            } else {
+                document.getElementById('kids-mode-content').style.display = 'block';
+                document.getElementById('main-content').style.display = 'none';
+                document.getElementById('quiz-content').style.display = 'none';
             }
         }
 
@@ -229,5 +231,3 @@
     </script>
 </body>
 </html>
-
-Initial commit with HTML/CSS prototype code
